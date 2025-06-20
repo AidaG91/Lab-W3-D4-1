@@ -99,7 +99,68 @@ function orderAlphabetically(moviesArray) {
 }
 
 // BONUS - Iteration 7: Time Format - Turn duration of the movies from hours to minutes
-function turnHoursToMinutes(moviesArray) {}
+function turnHoursToMinutes(moviesArray) {
+  function turnHoursToMinutes(moviesArray) {
+    // Creamos un nuevo array, pero además, nos aseguramos de que cada objeto
+    // que vamos a manipular sea también una copia del original.
+    const newMoviesArray = moviesArray.map((movie) => {
+      // Para cada 'movie' del array original, creamos una COPIA de ese objeto 'movie'.
+      // Esto asegura que al modificar 'duration', no afectamos el objeto original.
+      return { ...movie };
+    });
+
+    // Ahora, el resto de tu lógica es correcta, pero la aplicaremos
+    // sobre los objetos que son copias dentro de 'newMoviesArray'.
+    for (let i = 0; i < newMoviesArray.length; i++) {
+      const movie = newMoviesArray[i]; // 'movie' aquí ya es una COPIA del objeto original.
+
+      let totalMinutes = 0;
+      let hours = 0;
+      let minutes = 0;
+
+      const durationString = movie.duration;
+
+      if (durationString.includes("h")) {
+        const parts = durationString.split("h");
+        hours = parseInt(parts[0]) || 0; // Añadimos || 0 para manejar NaN
+      }
+      if (durationString.includes("min")) {
+        const minutesMatch = durationString.match(/(\d+)min/);
+        if (minutesMatch) {
+          minutes = parseInt(minutesMatch[1]) || 0; // Añadimos || 0 para manejar NaN
+        }
+      }
+      totalMinutes = hours * 60 + minutes;
+      movie.duration = totalMinutes; // Modificamos la COPIA del objeto, no el original
+    }
+    return newMoviesArray;
+  }
+  const newMoviesArray = moviesArray.slice();
+
+  for (let i = 0; i < newMoviesArray.length; i++) {
+    const movie = newMoviesArray[i];
+
+    let totalMinutes = 0;
+    let hours = 0;
+    let minutes = 0;
+
+    const durationString = movie.duration;
+
+    if (durationString.includes("h")) {
+      const parts = durationString.split("h");
+      hours = parseInt(parts[0]) || 0;
+    }
+    if (durationString.includes("min")) {
+      const minutesMatch = durationString.match(/(\d+)min/);
+      if (minutesMatch) {
+        minutes = parseInt(minutesMatch[1]) || 0;
+      }
+    }
+    totalMinutes = hours * 60 + minutes;
+    movie.duration = totalMinutes;
+  }
+  return newMoviesArray;
+}
 
 // BONUS - Iteration 8: Best yearly score average - Best yearly score average
 function bestYearAvg(moviesArray) {}
