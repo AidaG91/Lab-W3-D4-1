@@ -82,7 +82,21 @@ function orderByYear(moviesArray) {
 }
 
 // Iteration 6: Alphabetic Order - Order by title and print the first 20 titles
-function orderAlphabetically(moviesArray) {}
+function orderAlphabetically(moviesArray) {
+  const newMoviesArray = moviesArray.slice();
+
+  newMoviesArray.sort((a, b) => {
+    return a.title.localeCompare(b.title);
+  });
+
+  const titlesOnlyArray = newMoviesArray.map((movie) => {
+    return movie.title;
+  });
+
+  const finalResult = titlesOnlyArray.slice(0, 20);
+
+  return finalResult;
+}
 
 // BONUS - Iteration 7: Time Format - Turn duration of the movies from hours to minutes
 function turnHoursToMinutes(moviesArray) {}
